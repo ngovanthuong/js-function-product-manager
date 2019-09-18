@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>add new product</p>
+<input type="text" id="insert" placeholder="New product">
+<input type="button" id="add" value="Add" onclick="addProduct()">
+<input type="button" id="display" value="Display" onclick="displayProduct()">
+<input type="button" id="update" value="Update" onclick="updateProduct()">
+<p>display all product</p>
+<p>product name</p>
+<table id="result"></table>
+<script>
+    let product=[];
+    let data="";
+    let i=-1;
+    function addProduct() {
+        product.push(document.getElementById("insert").value);
+        //alert("da them vao danh sach")
+        document.getElementById("insert").value="";
+    }
+    function displayProduct(){
+     data="";
+        for(i=0;i<product.length;i++){
+            data+=product[i]+
+                "<input type='button' value='Edit' onclick='editProduct(this)' id="+i+">"+
+                "<input type='button'  value='Delete' onclick='deleteProduct(this)'id="+i+">"+"<br>"
+            document.getElementById("result").innerHTML=data;
+        }
+    }
+    function editProduct(e) {
+       i=Number(e.getAttribute("id"));
+       document.getElementById("insert").value=product[i];
+    }
+    function deleteProduct(d) {
+            i = Number(d.getAttribute("id"));
+            product.splice(i,1);
+            displayProduct()
+    }
+    function updateProduct() {
+        product[i] = document.getElementById("insert").value;
+        displayProduct();
+    }
+</script>
+</body>
+</html>

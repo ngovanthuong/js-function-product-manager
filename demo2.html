@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #frm {
+            height: 120px;
+            border: 1px solid gray;
+            width: 800px;
+            background-color: lightblue;
+        }
+        #input {
+            margin: 40px;
+            width: 280px;
+            height: 30px;
+            padding-left: 10px;
+        }
+        .btn {
+            height: 30px;
+            width: 100px;
+            border-radius: 15px;
+            color: red;
+        }
+        #product {
+            width: 380px;
+            font-size: 25px;
+        }
+        #btn-edit {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<h1>Add New Product</h1>
+<form id="frm">
+    <input type="text" id="input" placeholder="New Product">
+    <input type="button" value="Add" class="btn" onclick="addProduct()">
+    <input type="button" value="Display" class="btn" onclick="displayProduct()">
+    <input type="button" value="Update" class="btn" onclick="updateProduct()">
+</form>
+<h1>Display All Product</h1>
+<h3>Product name</h3>
+<table id="result">
+
+</table>
+
+<script>
+    let products = [];
+    let data = "";
+    let i = -1;
+    function addProduct() {
+        products.push(document.getElementById('input').value);
+        //alert('Đã thêm sản phẩm vào danh sách');
+    }
+    function displayProduct() {
+        data = "";
+        for (i = 0; i < products.length; i++) {
+            data += '<tr>';
+            data += '<td id="product">' + products[i] + '</td>' + '<td id="btn-edit">' +
+                '<input type="button" value="Edit" onclick="edit(this)" class="btn" id=' + i + '>' + '</td>' + '<td>' +
+                '<input  type="button" value="Delete" onclick="Delete(this)" class="btn" id='+i+'></td>';
+            data += '</tr>';
+        }
+        document.getElementById('result').innerHTML = data;
+    }
+    function edit(e) {
+        i = Number(e.getAttribute("id"));
+        document.getElementById('input').value = products[i];
+    }
+    function Delete(d) {
+        i = Number(d.getAttribute('id'));
+        document.getElementById('input').value = products[i];
+        products.splice(i,1);
+        displayProduct();
+    }
+    function updateProduct() {
+        products[i] = document.getElementById("input").value;
+        displayProduct();
+    }
+</script>
+</body>
+</html>
